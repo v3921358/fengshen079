@@ -2,13 +2,10 @@ package tools;
 
 
 import client.LoginCrypto;
-import constants.ServerConstants;
 import database.ConnectionMysqlJDBC;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import tools.wangzhan.BareBonesBrowserLaunch;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
@@ -17,10 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
-import static server.Start.getCPUSerial;
-import static server.Start.getHardDiskSerialNumber;
-import tools.wangzhan.BareBonesBrowserLaunch;
-import tools.MacAddressTool;
 
 /**
  * 验证算法
@@ -103,7 +96,7 @@ public class ZeroMS {
 
     //获取CPU序列号
     public static String getCPUSerial() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         try {
             File file = File.createTempFile("tmp", ".vbs");
             file.deleteOnExit();
@@ -118,17 +111,17 @@ public class ZeroMS {
 
             String line;
             while ((line = input.readLine()) != null) {
-                result = result + line;
+                result.append(line);
             }
             input.close();
             file.delete();
         } catch (Exception e) {
             e.fillInStackTrace();
         }
-        if ((result.trim().length() < 1) || (result == null)) {
-            result = "无机器码被读取";
+        if ((result.toString().trim().length() < 1) || (result == null)) {
+            result = new StringBuilder("无机器码被读取");
         }
-        return result.trim();
+        return result.toString().trim();
     }
 
     //获取硬盘序列号  传人参数为盘符
@@ -227,7 +220,7 @@ public class ZeroMS {
                 if (index < 123) {
                     continue;
                 }
-                if (line.indexOf("window.baidu_time(") != -1) {
+                if (line.contains("window.baidu_time(")) {
                     String[] s = line.split("\\(");
                     time = Long.parseLong(s[1].substring(0, s[1].length() - 2));
                     break;

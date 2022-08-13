@@ -1,16 +1,7 @@
 package server;
 
-import client.MapleBuffStat;
-import client.MapleCharacter;
-import client.MapleCoolDownValueHolder;
-import client.MapleDisease;
-import client.MapleStat;
+import client.*;
 import client.MapleTrait.MapleTraitType;
-import client.MonsterStatus;
-import client.MonsterStatusEffect;
-import client.PlayerStats;
-import client.Skill;
-import client.SkillFactory;
 import client.inventory.Item;
 import client.inventory.MapleInventory;
 import client.inventory.MapleInventoryType;
@@ -18,29 +9,13 @@ import constants.GameConstants;
 import constants.ServerConfig;
 import handling.channel.ChannelServer;
 import handling.world.MaplePartyCharacter;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.io.Serializable;
-import java.lang.ref.WeakReference;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ScheduledFuture;
 import provider.MapleData;
 import provider.MapleDataTool;
 import provider.MapleDataType;
 import server.MapleCarnivalFactory.MCSkill;
 import server.Timer.BuffTimer;
-import server.life.MapleLifeFactory;
 import server.life.MapleMonster;
-import server.maps.MapleDoor;
-import server.maps.MapleExtractor;
-import server.maps.MapleMap;
-import server.maps.MapleMapObject;
-import server.maps.MapleMapObjectType;
-import server.maps.MapleMist;
-import server.maps.MapleSummon;
-import server.maps.MechDoor;
-import server.maps.SummonMovementType;
+import server.maps.*;
 import tools.CaltechEval;
 import tools.FileoutputUtil;
 import tools.Pair;
@@ -51,6 +26,14 @@ import tools.packet.CWvsContext;
 import tools.packet.CWvsContext.BuffPacket;
 import tools.packet.JobPacket;
 import tools.packet.JobPacket.PhantomPacket;
+
+import java.awt.*;
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ScheduledFuture;
 
 public class MapleStatEffect implements Serializable {
 
@@ -2401,7 +2384,7 @@ public class MapleStatEffect implements Serializable {
             case 110001503:
             case 110001504: {
                 //applyto.cancelEffectFromBuffStat(MapleBuffStat.ANIMAL_SELECT);
-                final EnumMap<MapleBuffStat, Integer> stat = new EnumMap<>(MapleBuffStat.class);
+                //final EnumMap<MapleBuffStat, Integer> stat = new EnumMap<>(MapleBuffStat.class);
                 //stat.clear();
                 //stat.clear();
                 //applyto.getClient().getSession().write(BuffPacket.giveBuff(sourceid, 2147483647, stat, this));

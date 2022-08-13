@@ -185,7 +185,7 @@ public class CWvsContext {
         mplew.writeShort(SendPacketOpcode.UPDATE_SKILLS.getValue());
         mplew.write(hyper ? 0 : 1);
         mplew.writeShort(update.size());
-        for (Map.Entry z : update.entrySet()) {
+        for (Entry<Skill, SkillEntry> z : update.entrySet()) {
             mplew.writeInt(((Skill) z.getKey()).getId());
             mplew.writeInt(((SkillEntry) z.getValue()).skillevel);
             mplew.writeInt(((SkillEntry) z.getValue()).masterlevel);
@@ -565,7 +565,7 @@ public class CWvsContext {
             mplew.writeShort(x);
         }
         MapleInventory iv = chr.getInventory(MapleInventoryType.SETUP);
-        List<Item> chairItems = new ArrayList();
+        List<Item> chairItems = new ArrayList<>();
         for (Item item : iv.list()) {
             if ((item.getItemId() >= 3010000) && (item.getItemId() <= 3020001)) {
                 chairItems.add((Item) item);
@@ -576,7 +576,7 @@ public class CWvsContext {
             mplew.writeInt(item.getItemId());
         }
         MapleInventory medals = chr.getInventory(MapleInventoryType.EQUIP);
-        List<Item> medalsItems = new ArrayList();
+        List<Item> medalsItems = new ArrayList<>();
         for (Item item : medals.list()) {
             if ((item.getItemId() >= 1142000) && (item.getItemId() <= 1142999)) {
                 medalsItems.add((Item) item);
@@ -2459,9 +2459,9 @@ public class CWvsContext {
         public static void addPartyStatus(int forchannel, MapleParty party, MaplePacketLittleEndianWriter lew, boolean leaving, boolean exped) {
             List<MaplePartyCharacter> partymembers;
             if (party == null) {
-                partymembers = new ArrayList();
+                partymembers = new ArrayList<>();
             } else {
-                partymembers = new ArrayList(party.getMembers());
+                partymembers = new ArrayList<>(party.getMembers());
             }
             while (partymembers.size() < 6) {
                 partymembers.add(new MaplePartyCharacter());
@@ -4024,7 +4024,7 @@ public class CWvsContext {
             mplew.writeShort(SendPacketOpcode.GIVE_BUFF.getValue());
             PacketHelper.writeBuffMask(mplew, statups);
             // mplew.write(HexTool.getByteArrayFromHexString("00 00 00 00 00 00 00 80 00 00 00 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00"));         
-            for (Map.Entry stat : statups.entrySet()) {
+            for (Entry<MapleBuffStat, Integer> stat : statups.entrySet()) {
                 mplew.writeShort(((Integer) stat.getValue()));
                 mplew.writeInt(buffid);
                 mplew.writeInt(bufflength);
